@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django CRUD with WebSocket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #notifications {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Django CRUD Operations with WebSocket Notifications</h1>
+
+    <button onclick="createAuthor()">Create Author</button>
+    <button onclick="updateAuthor()">Update Author</button>
+    <button onclick="deleteAuthor()">Delete Author</button>
+
+    <div id="notifications">
+        <h2>Notifications</h2>
+        <ul id="notification-list">
+            <!-- Уведомления будут добавляться сюда -->
+        </ul>
+    </div>
+
+    <script>
+        // Подключение к WebSocket
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/some_path/');
+
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const notificationList = document.getElementById('notification-list');
+            const newNotification = document.createElement('li');
+            newNotification.textContent = data.message;
+            notificationList.appendChild(newNotification);
+        };
+
+        // Пример функций для работы с CRUD операциями
+        function createAuthor() {
+            fetch('/api/v1/authors/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: 'New Author' })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Author created:', data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateAuthor() {
+            const authorId = 1;  // Используйте существующий ID автора
+            fetch(`/api/v1/authors/${authorId}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: 'Updated Author' })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Author updated:', data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function deleteAuthor() {
+            const authorId = 1;  // Используйте существующий ID автора
+            fetch(`/api/v1/authors/${authorId}/`, {
+                method: 'DELETE'
+            })
+            .then(() => console.log('Author deleted'))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+</body>
+</html>
+ 
