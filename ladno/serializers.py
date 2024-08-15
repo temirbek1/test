@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Author, Book, Category, Product, Profile
 from django.contrib.auth.models import User
 
-# Сериализаторы для моделей Один ко Многим
+
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
@@ -16,7 +16,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# Сериализаторы для моделей Многие ко Многим
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -30,7 +30,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# Сериализаторы для моделей Один к Одному
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
