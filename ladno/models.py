@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Один ко Многим (One-to-Many)
+
+
+# Один ко Многим
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
@@ -16,7 +18,9 @@ class Book(models.Model):
         return self.title
 
 
-# Многие ко Многим (Many-to-Many)
+
+
+# Многие ко Многим 
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -31,7 +35,7 @@ class Product(models.Model):
         return self.name
 
 
-# Один к Одному (One-to-One)
+# Один к Одному
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField()
