@@ -10,6 +10,8 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+
+# Многие к одному
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
