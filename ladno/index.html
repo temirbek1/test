@@ -32,21 +32,32 @@
 </head>
 <body>
 
-    <h1>Django CRUD Operations with WebSocket Notifications</h1>
 
+    
+    <h1>Django CRUD</h1>
+
+
+    
     <button onclick="createAuthor()">Create Author</button>
     <button onclick="updateAuthor()">Update Author</button>
     <button onclick="deleteAuthor()">Delete Author</button>
 
+
+
+    
     <div id="notifications">
         <h2>Notifications</h2>
         <ul id="notification-list">
-            <!-- Уведомления будут добавляться сюда -->
         </ul>
     </div>
 
+
+
+
+
+    
     <script>
-        // Подключение к WebSocket
+        
         const socket = new WebSocket('ws://' + window.location.host + '/ws/some_path/');
 
         socket.onmessage = function(event) {
@@ -57,7 +68,7 @@
             notificationList.appendChild(newNotification);
         };
 
-        // Пример функций для работы с CRUD операциями
+
         function createAuthor() {
             fetch('/api/v1/authors/', {
                 method: 'POST',
@@ -72,7 +83,7 @@
         }
 
         function updateAuthor() {
-            const authorId = 1;  // Используйте существующий ID автора
+            const authorId = 1; 
             fetch(`/api/v1/authors/${authorId}/`, {
                 method: 'PUT',
                 headers: {
@@ -86,7 +97,7 @@
         }
 
         function deleteAuthor() {
-            const authorId = 1;  // Используйте существующий ID автора
+            const authorId = 1; 
             fetch(`/api/v1/authors/${authorId}/`, {
                 method: 'DELETE'
             })
